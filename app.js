@@ -11,7 +11,9 @@ var app = module.exports = express.createServer();
 
 app.configure(function(){
   //app.set('views', __dirname + '/views'); //=> default
-  app.set('view engine', 'jade');
+  //app.set('view engine', 'jade');
+  app.set('view engine', 'ejs');
+  app.set('view options', {layout: false});
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   //app.use(require('stylus').middleware({ src: __dirname + '/public' }));
