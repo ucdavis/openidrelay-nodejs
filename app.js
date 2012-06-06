@@ -21,6 +21,7 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public')); //=> static files under public
 });
 
+/*
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
 });
@@ -28,6 +29,7 @@ app.configure('development', function(){
 app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
+*/
 
 // Routes
 /*
