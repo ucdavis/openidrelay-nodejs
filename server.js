@@ -83,11 +83,12 @@ app.get('/about', function(req,res){
 app.get('/authenticate', openidmethods.authenticate);
 
 app.get('/verify', openidmethods.verify);
+app.listen(process.env.port);
 
+/*
 // Only listen on $ node app.js
-
 if (!module.parent) {
-    app.listen(process.env.port);
     //app.listen(process.env.PORT);
     //console.log("Express server listening on port %d", app.address().port);
 }
+*/
