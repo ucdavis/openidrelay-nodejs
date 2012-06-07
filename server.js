@@ -83,7 +83,9 @@ app.get('/about', function(req,res){
 app.get('/authenticate', openidmethods.authenticate);
 
 app.get('/verify', openidmethods.verify);
-app.listen(process.env.port);
+var port = process.env.port ? process.env.port : process.env.PORT;
+
+app.listen(port);
 
 /*
 // Only listen on $ node app.js
