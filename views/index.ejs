@@ -1,10 +1,18 @@
 <div class="container">
 
+    <div class="well">
+    <% if (authenticated){ %>    
+      <p>Welcome <%= username %>! You can now view the <a href="membersonly">Member's Only page</a>
+        <a href="logout" class="btn pull-right">Logout</a></p>
+    <% } else { %>
+      <p>Welcome Mystery Anonymous Person. <a href="login">Click here to log in</a></p>
+    <% } %>
+    </div>
+
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        <p>Example OpenID consumer/relaying party, which shows how to setup your site to authenticate using an OpenID provider.</p>
-        <p>Try going to the "Member's Only" section, which requires authorization. You will be asked to authenticate against an OpenID provider.</p>
-        <p><a class="btn btn-primary btn-large">Member's Only Section</a></p>
+        <h2>Example OpenID consumer/relaying party, which shows how to setup your site to authenticate using an OpenID provider.</h2>
+        <p>Try logging in using the link above.  Once you are logged in, you can see your unique identity and you will be allowed to access the "Member's Only" section, which requires authorization. You will be asked to authenticate against an OpenID provider.</p>
       </div>
 
 </div> <!-- /container -->

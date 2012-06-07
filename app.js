@@ -37,7 +37,9 @@ app.configure('production', function(){
 // Routes
 app.get('/', function(req, res){
   res.render('index', {
-    title: 'Home'
+    title: 'Home',
+    authenticated: req.session.auth,
+    username: req.session.authname
   });
 });
 
