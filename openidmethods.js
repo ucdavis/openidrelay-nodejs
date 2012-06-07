@@ -11,20 +11,41 @@ var relyingParty = function(verifyUrl) {
     };
 
 function authenticate(req, res) {
-    var relay = relyingParty("http://" + req.headers.host + "/verify");
-    res.writeHead(200, {
-        "Content-Type": "text/plain"
+    var rely = relyingParty("http://" + req.headers.host + "/verify");
+    
+    var parsedUrl = url.parse(req.url);
+    var query = querystring.parse(parsedUrl.query);
+    var identifier = query.openid_identifier;// User supplied identifier
+    
+
+    // Resolve identifier, associate, and build authentication URL
+    rely.authenticate(identifier, false, function(error, authUrl) {
+        if (error) {
+            res.writeHead(200);
+            res.end('Authentication failed: ' + error.message);
+        }
+        else if (!authUrl) {
+            res.writeHead(200);
+            res.end('Authentication failed');
+        }
+        else {
+            res.writeHead(302, {
+                Location: authUrl
+            });
+            res.end();
+        }
     });
-    res.write("Hello World  " + req.headers.host + "/authenticate\n");
-    res.end();
 }
 
 function verify(req, res) {
-    res.writeHead(200, {
-        "Content-Type": "text/plain"
+    var rely = relyingParty("http://" + req.headers.host + "/verify");
+    // Verify identity assertion
+    // NOTE: Passing just the URL is also possible
+    rely.verifyAssertion(req, function(error, result)
+    {
+      res.writeHead(200);
+      res.end(!error && result.authenticated ? 'Success :)' : 'Failure :(');
     });
-    res.write("Hello World  " + req.headers.host + "/verify");
-    res.end();
 }
 
 exports.authenticate = authenticate;
