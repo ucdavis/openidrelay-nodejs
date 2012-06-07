@@ -63,7 +63,7 @@ app.get('/logout', function(req, res) {
 app.get('/membersonly', function(req, res) {
     if (req.session.auth) {
         res.render('membersonly', {
-            title: "Member's Only",
+            title: "Members Only",
             username: req.session.authname
         });
     }
