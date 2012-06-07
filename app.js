@@ -4,6 +4,7 @@
  */
 
 var express = require('express');
+var openidmethods = require('./openidmethods');
 
 var app = module.exports = express.createServer();
 
@@ -32,16 +33,15 @@ app.configure('production', function(){
 */
 
 // Routes
-/*
-app.get('/', function(req, res){
-    res.send('Hello World');
-});
-*/
 app.get('/', function(req, res){
   res.render('index', {
     title: 'Home'
   });
 });
+
+app.get('/authenticate', openidmethods.authenticate);
+
+app.get('/verify', openidmethods.verify);
 
 app.get('/about', function(req, res){
   res.render('about', {
