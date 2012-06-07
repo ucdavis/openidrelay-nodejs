@@ -85,6 +85,7 @@ app.get('/verify', openidmethods.verify);
 // Only listen on $ node app.js
 
 if (!module.parent) {
-    app.listen(process.env.PORT);
-    console.log("Express server listening on port %d", app.address().port);
+    app.listen(process.env.port);
+    //app.listen(process.env.PORT);
+    //console.log("Express server listening on port %d", app.address().port);
 }
