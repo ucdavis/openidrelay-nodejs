@@ -2,6 +2,8 @@
  * Module dependencies.
  */
 
+console.log("starting node with express");
+
 var express = require('express');
 var openidmethods = require('./openidmethods');
 
