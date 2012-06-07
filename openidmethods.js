@@ -12,12 +12,10 @@ var relyingParty = function(verifyUrl) {
 
 function authenticate(req, res) {
     var rely = relyingParty("http://" + req.headers.host + "/verify");
-    
+
     var parsedUrl = url.parse(req.url);
     var query = querystring.parse(parsedUrl.query);
-    var identifier = query.openid_identifier;// User supplied identifier
-    
-
+    var identifier = query.openid_identifier; // User supplied identifier
     // Resolve identifier, associate, and build authentication URL
     rely.authenticate(identifier, false, function(error, authUrl) {
         if (error) {
@@ -41,11 +39,22 @@ function verify(req, res) {
     var rely = relyingParty("http://" + req.headers.host + "/verify");
     // Verify identity assertion
     // NOTE: Passing just the URL is also possible
-    rely.verifyAssertion(req, function(error, result)
-    {
-      res.writeHead(200);
-      res.end(!error && result.authenticated ? 'Success :)' : 'Failure :(');
+    rely.verifyAssertion(req, function(error, result) {
+        if (!error && result.authenticated) {
+            req.session.auth = true;
+            req.session.authname = result.claimedIdentifier;
+
+            res.writeHead(302, {
+                Location: '/'
+            });
+            res.end();
+        }
+        else {
+            res.writeHead(200);
+            res.end('Failure :(');
+        }
     });
 }
 
 exports.authenticate = authenticate;
+exports.verify = verify;
